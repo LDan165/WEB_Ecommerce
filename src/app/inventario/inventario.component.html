@@ -1,0 +1,106 @@
+<div class="inventario-container">
+  <div class="header">
+    <h2>Gestión de Inventario</h2>
+  </div>
+
+  <div *ngIf="cargando" class="cargando">
+    <div class="spinner"></div>
+    <p>Cargando inventario...</p>
+  </div>
+
+  <div *ngIf="error" class="mensaje error">
+    <p>{{ error }}</p>
+    <button (click)="error = null" class="btn-cerrar">×</button>
+  </div>
+
+  <div *ngIf="mensajeExito" class="mensaje exito">
+    <p>{{ mensajeExito }}</p>
+    <button (click)="mensajeExito = null" class="btn-cerrar">×</button>
+  </div>
+
+  <div class="acciones-principales">
+    <button [routerLink]="['/agregar-producto']" class="btn-agregar-nuevo">
+      <i class="icon-plus"></i> Agregar Nuevo Producto
+    </button>
+    <button (click)="guardarInventario()" class="btn-guardar-xml">
+      <i class="icon-save"></i> Guardar Inventario (XML)
+    </button>
+  </div>
+
+  <div *ngIf="!cargando && productos.length === 0" class="sin-productos">
+    <div class="empty-state">
+      <i class="icon-empty"></i>
+      <p>No hay productos en el inventario.</p>
+      <button [routerLink]="['/agregar-producto']" class="btn-agregar-nuevo">
+        <i class="icon-plus"></i> Agregar Primer Producto
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="!cargando && productos.length > 0" class="inventario-tabla">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Descripción</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of productos">
+          <td>{{ producto.id }}</td>
+          <td>
+            <div class="producto-miniatura-container">
+              <img
+                [src]="producto.imagen"
+                alt="{{ producto.nombre }}"
+                class="producto-miniatura"
+                onerror="this.src='assets/images/default.jpg'"
+              />
+            </div>
+          </td>
+          <td>{{ producto.nombre }}</td>
+          <td>${{ producto.precio.toFixed(2) }}</td>
+          <td>
+            <div class="stock-control">
+              <input
+                type="number"
+                [value]="producto.cantidad"
+                min="0"
+                (change)="actualizarCantidad(producto, $event)"
+                class="input-stock"
+              />
+            </div>
+          </td>
+          <td class="descripcion-celda">{{ producto.descripcion }}</td>
+          <td class="acciones-celda">
+            <button
+              [routerLink]="['/editar-producto', producto.id]"
+              class="btn-editar"
+            >
+              <i class="icon-edit"></i> Editar
+            </button>
+            <button (click)="eliminarProducto(producto)" class="btn-eliminar">
+              <i class="icon-trash"></i> Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="navegacion">
+    <button (click)="volverAProductos()" class="btn-volver">
+      ← Volver a Productos
+    </button>
+  </div>
+
+  <!-- Sistema de notificación declarativo -->
+  <div *ngIf="mostrarNotificacion" class="notificacion">
+    {{ mensajeNotificacion }}
+  </div>
+</div>

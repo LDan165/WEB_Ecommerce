@@ -1,0 +1,21 @@
+<div class="pago-exitoso-container">
+  <div class="pago-exitoso-content">
+    <div class="icon-success">
+      <i class="icon-check-circle"></i>
+    </div>
+    <h1>¡Pago Exitoso!</h1>
+    <p>Tu compra ha sido procesada correctamente.</p>
+
+    <div class="detalles-pago">
+      <h2>Detalles de la transacción</h2>
+      <div class="detalle-item">
+        <span class="label">Fecha:</span>
+        <span class="valor">{{ fechaActual }}</span>
+      </div>
+    </div>
+
+    <div class="acciones">
+      <a [routerLink]="['/']" class="btn-volver">Volver a la tienda</a>
+    </div>
+  </div>
+</div>

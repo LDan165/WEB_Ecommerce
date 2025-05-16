@@ -1,0 +1,410 @@
+/* Estilos generales adaptados del catálogo */
+.inventario-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #00b0ff;
+  font-family: "Courier New", monospace;
+  background-color: #100f0f;
+}
+
+/* Estilos del encabezado */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #da2525;
+  padding-bottom: 15px;
+}
+
+.header h2 {
+  font-size: 32px;
+  margin: 0;
+  font-weight: normal;
+  color: #00b0ff;
+  text-align: left;
+}
+
+/* Estilos para el estado de carga */
+.cargando {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 176, 255, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid #00b0ff;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.cargando p {
+  color: #00b0ff;
+  font-style: italic;
+}
+
+/* Estilos para mensajes */
+.mensaje {
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.error {
+  background-color: rgba(255, 0, 0, 0.2);
+  border: 1px solid #ff0000;
+  color: #ff4081;
+}
+
+.exito {
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 1px solid #00ff00;
+  color: #4CAF50;
+}
+
+.btn-cerrar {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: inherit;
+}
+
+/* Estilos para acciones principales */
+.acciones-principales {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+.btn-agregar-nuevo, 
+.btn-guardar-xml {
+  padding: 12px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Courier New", monospace;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-agregar-nuevo {
+  background-color: #333;
+  color: white;
+  border: 2px solid #00b0ff;
+}
+
+.btn-agregar-nuevo:hover {
+  background-color: #444;
+  box-shadow: 0 0 10px rgba(0, 176, 255, 0.5);
+}
+
+.btn-guardar-xml {
+  background-color: #333;
+  color: white;
+  border: 2px solid #4CAF50;
+}
+
+.btn-guardar-xml:hover {
+  background-color: #444;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+/* Estilos para estado vacío */
+.sin-productos {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.empty-state i {
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.empty-state p {
+  color: #00b0ff;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.icon-empty::before {
+  content: "📦";
+  font-size: 48px;
+  opacity: 0.6;
+}
+
+/* Estilos para la tabla */
+.inventario-tabla {
+  margin-top: 20px;
+  overflow-x: auto;
+  border-radius: 8px;
+  background-color: #1a1a1a;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+th {
+  background-color: #222;
+  font-weight: bold;
+  color: #00b0ff;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+tr:hover {
+  background-color: #2a2a2a;
+}
+
+.producto-miniatura-container {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #444;
+}
+
+.producto-miniatura {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stock-control {
+  display: flex;
+  align-items: center;
+}
+
+.input-stock {
+  width: 70px;
+  padding: 8px;
+  border: 1px solid #00b0ff;
+  border-radius: 4px;
+  text-align: center;
+  background-color: #222;
+  color: white;
+  font-family: "Courier New", monospace;
+}
+
+.input-stock:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 176, 255, 0.5);
+  border-color: #ff4081;
+}
+
+.descripcion-celda {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ccc;
+}
+
+.acciones-celda {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-editar, 
+.btn-eliminar {
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-family: "Courier New", monospace;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-editar {
+  background-color: #333;
+  color: white;
+  border: 1px solid #00b0ff;
+}
+
+.btn-editar:hover {
+  background-color: #444;
+  box-shadow: 0 0 8px rgba(0, 176, 255, 0.5);
+}
+
+.btn-eliminar {
+  background-color: #333;
+  color: white;
+  border: 1px solid #ff4081;
+}
+
+.btn-eliminar:hover {
+  background-color: #444;
+  box-shadow: 0 0 8px rgba(255, 64, 129, 0.5);
+}
+
+/* Estilos para navegación */
+.navegacion {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.btn-volver {
+  background-color: #333;
+  color: white;
+  border: 2px solid #ff4081;
+  border-radius: 30px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: "Courier New", monospace;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.btn-volver:hover {
+  background-color: #444;
+  box-shadow: 0 0 10px rgba(255, 64, 129, 0.5);
+}
+
+/* Iconos mejorados */
+.icon-plus::before {
+  content: "+";
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.icon-save::before {
+  content: "💾";
+}
+
+.icon-edit::before {
+  content: "✏️";
+}
+
+.icon-trash::before {
+  content: "🗑️";
+}
+
+/* Estilos para la notificación */
+.notificacion {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #00b0ff;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 5px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  animation: fadeIn 0.3s, fadeOut 0.3s 2.7s;
+  font-family: "Courier New", monospace;
+  font-size: 16px;
+  max-width: 300px;
+  text-align: center;
+  border-left: 4px solid #4CAF50;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .acciones-principales {
+    flex-direction: column;
+  }
+  
+  .btn-agregar-nuevo, 
+  .btn-guardar-xml {
+    width: 100%;
+  }
+  
+  .acciones-celda {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .btn-editar, 
+  .btn-eliminar {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .inventario-tabla {
+    font-size: 14px;
+  }
+  
+  th, td {
+    padding: 10px 8px;
+  }
+  
+  .descripcion-celda {
+    max-width: 100px;
+  }
+}

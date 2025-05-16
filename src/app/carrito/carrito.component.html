@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="carrito.component.css" />
+  </head>
+  <body>
+    <div class="carrito-container">
+      <h2>Tu Carrito de Compras</h2>
+
+      <div *ngIf="carrito.length === 0" class="carrito-vacio">
+        <p>Tu carrito está vacío</p>
+        <div class="carrito-vacio-imagen">
+          <i class="icon-empty-cart"></i>
+        </div>
+        <button (click)="volverAProductos()" class="btn-seguir-comprando">
+          Seguir comprando
+        </button>
+      </div>
+
+      <div *ngIf="carrito.length > 0" class="carrito-contenido">
+        <div class="carrito-encabezado">
+          <div class="columna-producto">Producto</div>
+          <div class="columna-precio">Precio unitario</div>
+          <div class="columna-cantidad">Cantidad</div>
+          <div class="columna-subtotal">Subtotal</div>
+          <div class="columna-acciones">Acciones</div>
+        </div>
+
+        <div class="carrito-items">
+          <div class="carrito-item" *ngFor="let producto of carrito">
+            <div class="columna-producto">
+              <div class="producto-info">
+                <img
+                  [src]="producto.imagen"
+                  alt="{{ producto.nombre }}"
+                  class="producto-imagen"
+                  onerror="this.src='assets/default.jpg'"
+                />
+                <div class="producto-detalles">
+                  <h3>{{ producto.nombre }}</h3>
+                  <p class="producto-descripcion">{{ producto.descripcion }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="columna-precio">
+              {{ producto.precio | currency }}
+            </div>
+
+            <div class="columna-cantidad">
+              <div class="control-cantidad">
+                <button
+                  class="btn-cantidad btn-menos"
+                  (click)="decrementarCantidad(producto)"
+                  [disabled]="producto.cantidad <= 1"
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  [value]="producto.cantidad"
+                  min="1"
+                  [max]="obtenerStockDisponible(producto)"
+                  (change)="actualizarCantidad(producto, $event)"
+                  class="input-cantidad"
+                />
+                <button
+                  class="btn-cantidad btn-mas"
+                  (click)="incrementarCantidad(producto)"
+                  [disabled]="
+                    producto.cantidad >= obtenerStockDisponible(producto)
+                  "
+                >
+                  +
+                </button>
+              </div>
+              <div *ngIf="mostrarAlertaStock(producto)" class="alerta-stock">
+                ¡Solo quedan {{ obtenerStockDisponible(producto) }} unidades!
+              </div>
+            </div>
+
+            <div class="columna-subtotal">
+              {{ producto.precio * producto.cantidad | currency }}
+            </div>
+
+            <div class="columna-acciones">
+              <button
+                (click)="eliminarDelCarrito(producto.id)"
+                class="btn-eliminar"
+                title="Eliminar del carrito"
+              >
+                <i class="icon-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="carrito-resumen">
+          <div class="resumen-info">
+            <div class="resumen-fila">
+              <span>Subtotal:</span>
+              <span>{{ calcularSubtotal() | currency }}</span>
+            </div>
+            <div class="resumen-fila">
+              <span>IVA (16%):</span>
+              <span>{{ calcularIVA() | currency }}</span>
+            </div>
+            <div class="resumen-fila total">
+              <span>Total:</span>
+              <span>{{ calcularTotal() | currency }}</span>
+            </div>
+          </div>
+
+          <div class="carrito-acciones">
+            <button (click)="volverAProductos()" class="btn-seguir-comprando">
+              Seguir comprando
+            </button>
+
+            <!-- CONTENEDOR DE PAYPAL - ASEGÚRATE DE QUE ESTA SECCIÓN ESTÉ PRESENTE -->
+            <div id="paypal-button-container" class="paypal-button"></div>
+
+            <!-- Botón alternativo por si PayPal no carga -->
+            <div class="paypal-fallback" style="margin-top: 20px">
+              <button
+                (click)="pagar()"
+                class="btn-pagar"
+                style="margin-left: 10px"
+              >
+                Descargar XML y finalizar compra
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

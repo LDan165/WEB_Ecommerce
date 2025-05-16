@@ -26,15 +26,8 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.css"
-            ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -97,5 +90,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "6bcf53bd-5a4a-47ba-8b8d-b7e8e8181bfd"
   }
 }

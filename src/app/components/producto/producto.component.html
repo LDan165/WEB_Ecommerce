@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="producto.component.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-container">
+        <div class="logo-container">
+          <img
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-QTARIEIE42gV25PGsXibkXjQOhaWiN.png"
+            alt="Geek Collector Logo"
+            class="logo"
+          />
+        </div>
+        <div class="header-actions">
+          <button (click)="irAlCarrito()" class="btn-carrito">
+            <i class="icon-cart"></i> Carrito
+          </button>
+          <button (click)="irAlInventario()" class="btn-inventario">
+            <i class="icon-inventory"></i> Gestionar Inventario
+          </button>
+        </div>
+      </div>
+
+      <div></div>
+    </nav>
+    <div class="producto-container">
+      <div class="header">
+        <h2>Catálogo de productos</h2>
+      </div>
+
+      <div *ngIf="cargando" class="cargando">
+        <div class="spinner"></div>
+        <p>Cargando productos...</p>
+      </div>
+
+      <div *ngIf="error" class="error">
+        <p>{{ error }}</p>
+      </div>
+
+      <div *ngIf="!cargando && !error" class="productos-grid">
+        <div *ngFor="let producto of productos" class="producto-card">
+          <div
+            class="producto-imagen-container"
+            (click)="verDetalleProducto(producto.id)"
+          >
+            <img
+              [src]="producto.imagen"
+              [alt]="producto.nombre"
+              class="producto-imagen"
+              onerror="this.src='assets/images/default.jpg'"
+            />
+            <span *ngIf="producto.cantidad <= 0" class="agotado-badge"
+              >Agotado</span
+            >
+            <span
+              *ngIf="producto.cantidad > 0 && producto.cantidad <= 5"
+              class="ultimas-unidades-badge"
+              >¡Últimas unidades!</span
+            >
+          </div>
+
+          <div class="producto-content">
+            <h3
+              class="producto-titulo"
+              (click)="verDetalleProducto(producto.id)"
+            >
+              {{ producto.nombre }}
+            </h3>
+
+            <div class="producto-detalles">
+              <div class="precio-container">
+                <span class="precio-etiqueta">Precio:</span>
+                <span class="precio-valor"
+                  >${{ producto.precio.toFixed(2) }}</span
+                >
+              </div>
+
+              <div class="stock-container">
+                <span class="stock-etiqueta">Disponibles:</span>
+                <span
+                  class="stock-valor"
+                  [ngClass]="{
+                    'stock-bajo':
+                      producto.cantidad > 0 && producto.cantidad <= 5,
+                    'stock-agotado': producto.cantidad <= 0
+                  }"
+                  >{{ producto.cantidad }}</span
+                >
+              </div>
+            </div>
+
+            <p class="producto-descripcion">{{ producto.descripcion }}</p>
+
+            <div *ngIf="producto.cantidad > 0" class="control-cantidad">
+              <span class="cantidad-etiqueta">Cantidad:</span>
+              <div class="cantidad-controles">
+                <button
+                  class="btn-cantidad btn-menos"
+                  (click)="decrementarCantidad(producto)"
+                  [disabled]="getCantidadSeleccionada(producto.id) <= 1"
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  [value]="getCantidadSeleccionada(producto.id)"
+                  min="1"
+                  [max]="producto.cantidad"
+                  (change)="actualizarCantidad(producto, $event)"
+                  class="input-cantidad"
+                />
+                <button
+                  class="btn-cantidad btn-mas"
+                  (click)="incrementarCantidad(producto)"
+                  [disabled]="
+                    getCantidadSeleccionada(producto.id) >= producto.cantidad
+                  "
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <button
+              (click)="agregarACarrito(producto)"
+              [disabled]="producto.cantidad <= 0"
+              class="btn-agregar"
+              [ngClass]="{ 'btn-agotado': producto.cantidad <= 0 }"
+            >
+              <i class="icon-add-cart"></i>
+              {{ producto.cantidad <= 0 ? "Agotado" : "Agregar al carrito" }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf="!cargando && !error && productos.length === 0"
+        class="sin-productos"
+      >
+        <div class="empty-state">
+          <i class="icon-empty-cart"></i>
+          <p>No hay productos disponibles en el catálogo.</p>
+          <button (click)="irAlInventario()" class="btn-inventario">
+            Ir a Gestión de Inventario
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sistema de notificación declarativo -->
+    <div *ngIf="mostrarNotificacion" class="notificacion">
+      {{ mensajeNotificacion }}
+    </div>
+  </body>
+</html>

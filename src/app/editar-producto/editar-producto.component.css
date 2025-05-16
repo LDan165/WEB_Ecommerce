@@ -1,0 +1,24 @@
+/* Añade estos estilos a tu archivo CSS existente */
+
+.select-imagen {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.imagen-preview {
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  background-color: #f9f9f9;
+}
+
+.imagen-preview img {
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: contain;
+}

@@ -1,0 +1,145 @@
+<div class="agregar-producto-container">
+  <div class="header">
+    <h2>Agregar Nuevo Producto</h2>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+    <button (click)="error = null" class="btn-cerrar">×</button>
+  </div>
+
+  <form
+    [formGroup]="productoForm"
+    (ngSubmit)="guardarProducto()"
+    class="producto-form"
+  >
+    <div class="form-group">
+      <label for="nombre">Nombre del Producto*</label>
+      <input
+        type="text"
+        id="nombre"
+        formControlName="nombre"
+        placeholder="Ingrese el nombre del producto"
+        class="form-input"
+      />
+      <div
+        *ngIf="
+          productoForm.get('nombre')?.invalid &&
+          productoForm.get('nombre')?.touched
+        "
+        class="error-campo"
+      >
+        El nombre es obligatorio y debe tener al menos 3 caracteres
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="precio">Precio*</label>
+      <input
+        type="number"
+        id="precio"
+        formControlName="precio"
+        placeholder="0.00"
+        step="0.01"
+        min="0.01"
+        class="form-input"
+      />
+      <div
+        *ngIf="
+          productoForm.get('precio')?.invalid &&
+          productoForm.get('precio')?.touched
+        "
+        class="error-campo"
+      >
+        El precio es obligatorio y debe ser mayor a 0
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="cantidad">Cantidad en Stock*</label>
+      <input
+        type="number"
+        id="cantidad"
+        formControlName="cantidad"
+        placeholder="0"
+        min="0"
+        class="form-input"
+      />
+      <div
+        *ngIf="
+          productoForm.get('cantidad')?.invalid &&
+          productoForm.get('cantidad')?.touched
+        "
+        class="error-campo"
+      >
+        La cantidad es obligatoria y debe ser un número positivo
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="imagen">Imagen del Producto*</label>
+      <select id="imagen" formControlName="imagen" class="select-imagen">
+        <option *ngFor="let img of imagenesDisponibles" [value]="img.valor">
+          {{ img.nombre }}
+        </option>
+      </select>
+
+      <!-- Vista previa de la imagen seleccionada -->
+      <div class="imagen-preview">
+        <img
+          [src]="productoForm.get('imagen')?.value"
+          alt="Vista previa"
+          onerror="this.src='assets/images/default.jpg'"
+        />
+      </div>
+
+      <div
+        *ngIf="
+          productoForm.get('imagen')?.invalid &&
+          productoForm.get('imagen')?.touched
+        "
+        class="error-campo"
+      >
+        Debe seleccionar una imagen
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <textarea
+        id="descripcion"
+        formControlName="descripcion"
+        placeholder="Descripción del producto"
+        rows="4"
+        class="form-textarea"
+      ></textarea>
+      <div
+        *ngIf="
+          productoForm.get('descripcion')?.invalid &&
+          productoForm.get('descripcion')?.touched
+        "
+        class="error-campo"
+      >
+        La descripción no puede exceder los 200 caracteres
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" (click)="cancelar()" class="btn-cancelar">
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        [disabled]="productoForm.invalid || guardando"
+        class="btn-guardar"
+      >
+        {{ guardando ? "Guardando..." : "Guardar Producto" }}
+      </button>
+    </div>
+  </form>
+
+  <!-- Sistema de notificación declarativo -->
+  <div *ngIf="mostrarNotificacion" class="notificacion">
+    {{ mensajeNotificacion }}
+  </div>
+</div>

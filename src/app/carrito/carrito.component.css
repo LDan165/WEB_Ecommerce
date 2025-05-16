@@ -1,0 +1,363 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Courier New", monospace;
+  background-color: #100f0f;
+  
+}
+
+.carrito-container {
+ max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  color: white;
+  font-family: 'Courier New', monospace;
+}
+
+h2 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  font-weight: normal;
+  border-bottom: 1px solid #333;
+  padding-bottom: 15px;
+  color: white;
+}
+
+/* Estilos para carrito vacío */
+.carrito-vacio {
+ display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.carrito-vacio p {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #ccc;
+}
+
+.carrito-vacio-imagen {
+ font-size: 80px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.btn-seguir-comprando {
+  background-color: #333;
+  color: white;
+  border: 2px solid #ff4081;
+  border-radius: 30px;
+  padding: 10px 25px;
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-seguir-comprando:hover {
+  background-color: #444;
+  box-shadow: 0 0 10px rgba(255, 64, 129, 0.5);
+}
+
+/* Estilos para el contenido del carrito */
+.carrito-contenido {
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 2px solid #00b0ff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 176, 255, 0.2);
+}
+
+.carrito-encabezado {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1.5fr 1fr 0.8fr;
+  padding: 15px 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #00b0ff;
+  text-align: center;
+}
+
+.carrito-items {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.carrito-item {
+    display: grid;
+  grid-template-columns: 3fr 1fr 1.5fr 1fr 0.8fr;
+  padding: 15px 10px;
+  border-bottom: 1px solid #333;
+  align-items: center;
+  text-align: center;
+}
+
+.carrito-item:last-child {
+  border-bottom: none;
+}
+
+/* Estilos para la información del producto */
+.producto-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.producto-imagen {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  background-color: #666;
+}
+
+.producto-detalles h3 {
+font-size: 16px;
+  margin: 0 0 5px 0;
+}
+
+.producto-descripcion {
+  font-size: 14px;
+  color: #ccc;
+  margin: 0;
+  display: -webkit-box;
+ 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Estilos para el control de cantidad (reutilizando los que ya tienes) */
+.control-cantidad {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 120px;
+  margin: 0 auto;
+}
+
+.btn-cantidad {
+ width: 32px;
+  height: 32px;
+  background-color: #333;
+  border: 1px solid #00b0ff;
+  color: white;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-menos {
+  border-radius: 4px 0 0 4px;
+}
+
+.btn-mas {
+  border-radius: 0 4px 4px 0;
+}
+
+.btn-cantidad:hover:not(:disabled) {
+   background-color: #444;
+}
+
+.btn-cantidad:disabled {
+  color: #666;
+  cursor: not-allowed;
+  border-color: #444;
+}
+
+.input-cantidad {
+ width: 40px;
+  height: 32px;
+  border: 1px solid #00b0ff;
+  border-left: none;
+  border-right: none;
+  text-align: center;
+  font-size: 14px;
+  padding: 0;
+  background-color: #333;
+  color: white;
+}
+
+.input-cantidad::-webkit-inner-spin-button,
+.input-cantidad::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.alerta-stock {
+  font-size: 12px;
+  color: #ff9800;
+  margin-top: 5px;
+}
+
+/* Estilos para el botón de eliminar */
+.btn-eliminar {
+  background-color: transparent;
+  color: #ff4081;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-eliminar:hover {
+ color: #ff80ab;
+  transform: scale(1.1);
+}
+
+/* Estilos para el resumen del carrito */
+.carrito-resumen {
+   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.resumen-info {
+  flex: 1;
+  min-width: 300px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  padding: 20px;
+  border: 1px solid #333;
+}
+
+.resumen-fila {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #333;
+}
+
+.resumen-fila.total {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.carrito-acciones {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn-pagar {
+  padding: 12px 24px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-pagar:hover {
+  background-color: #388e3c;
+}
+
+/* Iconos */
+.icon-empty-cart:before {
+  content: "🛒";
+}
+
+.icon-trash:before {
+  content: "🗑️";
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .carrito-encabezado {
+    display: none;
+  }
+  
+  .carrito-item {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .columna-producto, .columna-precio, .columna-cantidad, .columna-subtotal, .columna-acciones {
+    width: 100%;
+    text-align: center;
+    padding: 5px 0;
+  }
+  
+  .columna-producto {
+    order: 1;
+  }
+  
+  .columna-precio {
+    order: 2;
+  }
+  
+  .columna-cantidad {
+    order: 3;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .columna-subtotal {
+    order: 4;
+    font-weight: 600;
+  }
+  
+  .columna-acciones {
+    order: 5;
+  }
+  
+  .producto-info {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .producto-imagen {
+    margin: 0 auto;
+  }
+  
+  .carrito-resumen {
+    flex-direction: column;
+  }
+  /*
+  .carrito-acciones {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Estilos para el botón de PayPal */
+#paypal-button-container {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Estilos para el botón de seguir comprando */
+.btn-seguir-comprando {
+  margin-right: 20px;
+}
+
+/* Estilos para la sección de acciones del carrito */
+.carrito-acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+  #paypal-button-container {
+    max-width: 350px;
+  }
+}
+
+}
