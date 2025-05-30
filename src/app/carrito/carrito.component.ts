@@ -64,39 +64,7 @@ export class CarritoComponent implements OnInit {
     }
   }
 
- /* loadPayPalScript() {
-    console.log("Iniciando carga del script de PayPal...")
-
-    // Evitar cargar el script múltiples veces
-    if (this.paypalScriptLoaded) {
-      this.renderPayPalButton()
-      return
-    }
-
-    // Crear el elemento script
-    const script = document.createElement("script")
-    script.src = "https://www.paypal.com/sdk/js?client-id=AQ7eModtB7MnB-V4QpbYm4nQ50m0xm6b_1h7DABF hJS8UQFxNtzf0mmOcaEz3hsZx-H6ZSJIAEpfj0l1&currency=MXN"
-    script.async = true
-
-    // Manejar eventos de carga
-    script.onload = () => {
-      console.log("Script de PayPal cargado correctamente")
-      this.paypalScriptLoaded = true
-
-      // Renderizar el botón si hay productos en el carrito
-      if (this.carrito.length > 0) {
-        setTimeout(() => {
-          this.renderPayPalButton()
-        }, 1000) // Pequeño retraso para asegurar que PayPal esté completamente inicializado
-      }
-    }
-
-    script.onerror = (error) => {
-      console.error("Error al cargar el script de PayPal:", error)
-    }
-
-    document.body.appendChild(script)
-  }*/
+ 
 
     loadPayPalScript(): void {
       // Verificar si ya está cargado
@@ -274,7 +242,7 @@ export class CarritoComponent implements OnInit {
   }
 
   volverAProductos() {
-    this.router.navigate(["/"])
+    this.router.navigate(["/productos"])
   }
 
   pagar() {

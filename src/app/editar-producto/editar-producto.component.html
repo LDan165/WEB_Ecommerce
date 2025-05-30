@@ -1,11 +1,14 @@
 <div class="editar-producto-container">
-  <h2>Editar Producto</h2>
+  <div class="header">
+    <h2>Editar Producto</h2>
+  </div>
 
   <div *ngIf="cargando" class="cargando">
+    <div class="spinner"></div>
     <p>Cargando producto...</p>
   </div>
 
-  <div *ngIf="error" class="error-mensaje">
+  <div *ngIf="error" class="error">
     <p>{{ error }}</p>
     <button (click)="error = null" class="btn-cerrar">×</button>
   </div>
@@ -23,6 +26,7 @@
         id="nombre"
         formControlName="nombre"
         placeholder="Ingrese el nombre del producto"
+        class="form-input"
       />
       <div
         *ngIf="
@@ -44,6 +48,7 @@
         placeholder="0.00"
         step="0.01"
         min="0.01"
+        class="form-input"
       />
       <div
         *ngIf="
@@ -64,6 +69,7 @@
         formControlName="cantidad"
         placeholder="0"
         min="0"
+        class="form-input"
       />
       <div
         *ngIf="
@@ -84,6 +90,15 @@
         </option>
       </select>
 
+      <!-- Vista previa de la imagen seleccionada -->
+      <div class="imagen-preview">
+        <img
+          [src]="productoForm.get('imagen')?.value"
+          alt="Vista previa"
+          onerror="this.src='assets/images/default.jpg'"
+        />
+      </div>
+
       <div
         *ngIf="
           productoForm.get('imagen')?.invalid &&
@@ -102,6 +117,7 @@
         formControlName="descripcion"
         placeholder="Descripción del producto"
         rows="4"
+        class="form-textarea"
       ></textarea>
       <div
         *ngIf="
@@ -127,4 +143,9 @@
       </button>
     </div>
   </form>
+
+  <!-- Sistema de notificación declarativo -->
+  <div *ngIf="mostrarNotificacion" class="notificacion">
+    {{ mensajeNotificacion }}
+  </div>
 </div>

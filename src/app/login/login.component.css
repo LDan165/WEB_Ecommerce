@@ -1,0 +1,206 @@
+.login-container {
+  min-height: 100vh;
+  background-color: #100f0f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: "Courier New", monospace;
+}
+
+.login-card {
+  background-color: #1a1a1a;
+  border: 2px solid #ff4081;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(255, 64, 129, 0.3);
+}
+
+.logo-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  height: 80px;
+  width: auto;
+  margin-bottom: 10px;
+}
+
+.logo-container h1 {
+  color: #00b0ff;
+  margin: 0;
+  font-size: 24px;
+}
+
+.login-form h2 {
+  color: #00b0ff;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  color: #00b0ff;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px;
+  background-color: #333;
+  border: 2px solid #555;
+  border-radius: 8px;
+  color: white;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #00b0ff;
+  box-shadow: 0 0 5px rgba(0, 176, 255, 0.3);
+}
+
+.form-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background-color: rgba(255, 0, 0, 0.2);
+  border: 1px solid #ff0000;
+  color: #ff6b6b;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.btn-login {
+  flex: 2;
+  background-color: #333;
+  color: white;
+  border: 2px solid #00b0ff;
+  border-radius: 30px;
+  padding: 12px 20px;
+  font-family: "Courier New", monospace;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s;
+}
+
+.btn-login:hover:not(:disabled) {
+  background-color: #444;
+  box-shadow: 0 0 10px rgba(0, 176, 255, 0.5);
+}
+
+.btn-login:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-clear {
+  flex: 1;
+  background-color: transparent;
+  color: #ff4081;
+  border: 2px solid #ff4081;
+  border-radius: 30px;
+  padding: 12px 20px;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-clear:hover:not(:disabled) {
+  background-color: rgba(255, 64, 129, 0.1);
+}
+
+.btn-clear:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 2px solid white;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.help-info {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #555;
+  text-align: center;
+}
+
+.help-info h3 {
+  color: #00b0ff;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.help-info p {
+  color: #ccc;
+  font-size: 12px;
+  margin: 5px 0;
+  line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 20px;
+    margin: 10px;
+  }
+
+  .logo {
+    height: 60px;
+  }
+
+  .logo-container h1 {
+    font-size: 20px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn-login,
+  .btn-clear {
+    flex: none;
+  }
+}

@@ -7,6 +7,9 @@ import { RouterModule } from "@angular/router";
 import { Producto } from "../../models/producto"
 import { InventarioService } from "../../inventario/inventario.service"
 import { CarritoService } from "../../services/carrito.service"
+import { AuthService } from "../../auth.service";
+
+
 
 @Component({
   selector: "app-producto",
@@ -30,7 +33,8 @@ export class ProductoComponent implements OnInit {
   constructor(
     private inventarioService: InventarioService,
     private carritoService: CarritoService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -60,6 +64,33 @@ export class ProductoComponent implements OnInit {
         this.cargando = false;
       },
     })
+  }
+
+  
+
+ estaAutenticado(): boolean {
+    return this.authService.estaAutenticado()
+  }
+
+  esAdmin() {
+    return this.authService.esAdmin();
+  }
+
+  obtenerUsuario(): any {
+    return this.authService.obtenerUsuarios()
+  }
+
+  obtenerRol(): string | null {
+    return this.authService.obtenerRol()
+  }
+
+  cerrarSesion(): void {
+    this.authService.logout()
+    this.router.navigate(["/login"])
+  }
+
+  irAlLogin(): void {
+    this.router.navigate(["/login"])
   }
 
   // Obtener la cantidad seleccionada para un producto
@@ -131,4 +162,7 @@ export class ProductoComponent implements OnInit {
       this.mostrarNotificacion = false;
     }, 3000);
   }
+
+
+  
 }

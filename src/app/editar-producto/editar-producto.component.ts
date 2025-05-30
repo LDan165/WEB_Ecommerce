@@ -108,9 +108,24 @@ export class EditarProductoComponent implements OnInit {
         this.guardando = false;
       }
     });
+    this.mostrarMensaje('Producto actualizado exitosamente');
   }
   
   cancelar(): void {
     this.router.navigate(['/inventario']);
   }
+
+  mostrarNotificacion = false;
+mensajeNotificacion = '';
+
+mostrarMensaje(mensaje: string): void {
+  this.mensajeNotificacion = mensaje;
+  this.mostrarNotificacion = true;
+  
+  // Ocultar después de 3 segundos
+  setTimeout(() => {
+    this.mostrarNotificacion = false;
+  }, 3000);
+}
+
 }

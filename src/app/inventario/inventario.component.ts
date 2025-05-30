@@ -89,7 +89,7 @@ export class InventarioComponent implements OnInit {
   }
   
   volverAProductos() {
-    this.router.navigate(["/"]);
+    this.router.navigate(["/productos"]);
   }
 
   guardarInventario(): void {

@@ -14,10 +14,21 @@
           />
         </div>
         <div class="header-actions">
-          <button (click)="irAlCarrito()" class="btn-carrito">
+          <!-- Solo para clientes -->
+          <button
+            *ngIf="!esAdmin()"
+            (click)="irAlCarrito()"
+            class="btn-carrito"
+          >
             <i class="icon-cart"></i> Carrito
           </button>
-          <button (click)="irAlInventario()" class="btn-inventario">
+
+          <!-- Solo para administradores -->
+          <button
+            *ngIf="esAdmin()"
+            (click)="irAlInventario()"
+            class="btn-inventario"
+          >
             <i class="icon-inventory"></i> Gestionar Inventario
           </button>
         </div>
@@ -41,10 +52,7 @@
 
       <div *ngIf="!cargando && !error" class="productos-grid">
         <div *ngFor="let producto of productos" class="producto-card">
-          <div
-            class="producto-imagen-container"
-            (click)="verDetalleProducto(producto.id)"
-          >
+          <div class="producto-imagen-container">
             <img
               [src]="producto.imagen"
               [alt]="producto.nombre"
@@ -143,9 +151,6 @@
         <div class="empty-state">
           <i class="icon-empty-cart"></i>
           <p>No hay productos disponibles en el catálogo.</p>
-          <button (click)="irAlInventario()" class="btn-inventario">
-            Ir a Gestión de Inventario
-          </button>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http"; // Cambiado: eliminado 'type'
 import { Observable, catchError, map, of } from "rxjs";
-import { Producto } from "../models/producto"; // Asumiendo que tienes este modelo
+import { Producto } from "../models/producto"; 
 
 @Injectable({
   providedIn: "root",
