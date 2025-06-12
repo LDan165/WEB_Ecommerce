@@ -7,6 +7,9 @@ import { EditarProductoComponent } from './editar-producto/editar-producto.compo
 import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { PagoExitosoComponent } from './pago-exitoso/pago-exitoso.component';
+import { AvisoPrivacidadComponent } from './aviso-privacidad/aviso-privacidad.component';
+import { TerminosCondicionesComponent } from './terminos-condiciones/terminos-condiciones.component';
+
 
 export const routes: Routes = [
   
@@ -18,6 +21,8 @@ export const routes: Routes = [
   
 
   { path: 'login', component: LoginComponent },
+
+  {path: 'terminos-condiciones', component: TerminosCondicionesComponent},
 
   // Página principal protegida (requiere login)
   { path: 'productos', component: ProductoComponent},

@@ -3,10 +3,10 @@ const mysql = require("mysql")
 const cors = require("cors")
 const app = express()
 
-// Middleware para CORS - permitir todas las solicitudes para pruebas
+
 app.use(cors())
 
-// Middleware para parsear JSON - configuración más permisiva
+
 app.use(
   express.json({
     strict: false,
@@ -19,11 +19,9 @@ app.use('/api/productos', productosRouter);
 
 
 
-// Log de todas las requests para debugging
 app.use((req, res, next) => {
   console.log(`\n📡 ${req.method} ${req.path}`)
-
-  // Mostrar headers relevantes
+  
   const relevantHeaders = {
     "content-type": req.headers["content-type"],
     origin: req.headers["origin"],
@@ -31,7 +29,6 @@ app.use((req, res, next) => {
   }
   console.log("Headers relevantes:", relevantHeaders)
 
-  // Mostrar body si existe
   if (req.method === "POST" || req.method === "PUT") {
     console.log("Body recibido:", req.body)
   }
@@ -39,15 +36,15 @@ app.use((req, res, next) => {
   next()
 })
 
-// Configuración de conexión a tu base de datos
+
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "", // Cambia si usas contraseña
+  password: "", 
   database: "basededatos",
 })
 
-// Conectar a la base de datos
+
 db.connect((err) => {
   if (err) {
     console.error("❌ Error conectando a la base de datos:", err)
@@ -56,7 +53,7 @@ db.connect((err) => {
   console.log("✅ Conectado a la base de datos MySQL: basededatos")
 })
 
-// Ruta para verificar usuarios
+
 app.get("/usuarios", (req, res) => {
   console.log("📋 Consultando usuarios...")
   const query = "SELECT id, email, password, rol FROM usuarios"
@@ -70,11 +67,10 @@ app.get("/usuarios", (req, res) => {
   })
 })
 
-// Ruta de login con manejo de errores mejorado
+
 app.post("/login", (req, res) => {
   console.log("\n🔐 === INTENTO DE LOGIN ===")
 
-  // Verificar si req.body existe y tiene la estructura esperada
   if (!req.body) {
     console.log("❌ Error: Body vacío o mal formateado")
     return res.status(400).json({
@@ -84,14 +80,12 @@ app.post("/login", (req, res) => {
 
   console.log("Body completo:", req.body)
 
-  // Extraer email y contraseña del body
   const email = req.body.email
-  const contrasena = req.body.contrasena || req.body.password // Aceptar ambos nombres
+  const contrasena = req.body.contrasena || req.body.password 
 
   console.log("Email extraído:", email)
   console.log("Contraseña extraída:", contrasena)
 
-  // Validación de entrada
   if (!email || !contrasena) {
     console.log("❌ Error: Faltan datos")
     return res.status(400).json({
@@ -99,7 +93,7 @@ app.post("/login", (req, res) => {
     })
   }
 
-  // Consulta a la base de datos
+
   const query = "SELECT * FROM usuarios WHERE email = ?"
 
   db.query(query, [email], (err, results) => {
@@ -126,7 +120,7 @@ app.post("/login", (req, res) => {
     console.log("   - Password recibida:", contrasena)
     console.log("   - Rol:", usuario.rol)
 
-    // Comparar contraseñas como strings
+
     const passwordBD = String(usuario.password)
     const passwordRecibida = String(contrasena)
 
@@ -156,7 +150,7 @@ app.post("/login", (req, res) => {
   })
 })
 
-// Ruta de test
+
 app.get("/test", (req, res) => {
   console.log("🧪 Test endpoint llamado")
   res.json({
@@ -166,7 +160,7 @@ app.get("/test", (req, res) => {
   })
 })
 
-// Iniciar servidor
+
 app.listen(3000, () => {
   console.log("🚀 Servidor corriendo en http://localhost:3000")
   console.log("📋 Endpoints disponibles:")

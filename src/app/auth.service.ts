@@ -34,18 +34,15 @@ export class AuthService {
     console.log("Contraseña:", contrasena)
     console.log("URL:", `${this.apiUrl}/login`)
 
-    // Configurar headers explícitamente
     const headers = new HttpHeaders({
       "Content-Type": "application/json",
     })
 
-    // Crear el objeto de datos y convertirlo a JSON manualmente
     const loginData = { email, contrasena }
     const body = JSON.stringify(loginData)
 
     console.log("Body a enviar:", body)
 
-    // Usar la opción observe: 'response' para ver la respuesta completa
     return this.http
       .post(`${this.apiUrl}/login`, loginData, {
         headers: headers,
@@ -54,7 +51,6 @@ export class AuthService {
         tap((respuesta: any) => {
           console.log("Respuesta del servidor:", respuesta)
 
-          // Guardar información del usuario en localStorage
           localStorage.setItem("usuario", JSON.stringify(respuesta.usuario))
           localStorage.setItem("email", respuesta.usuario.email)
           localStorage.setItem("rol", respuesta.usuario.rol)
@@ -63,7 +59,6 @@ export class AuthService {
           const token = "sesion_" + Date.now()
           localStorage.setItem("token", token)
 
-          // Actualizar el subject
           this.currentUserSubject.next(respuesta.usuario)
 
           console.log("Usuario autenticado y guardado:", respuesta.usuario)
@@ -77,7 +72,6 @@ export class AuthService {
       )
   }
 
-  // Método para obtener usuarios (para debugging)
   obtenerUsuarios(): Observable<any> {
     console.log("Obteniendo usuarios desde:", `${this.apiUrl}/usuarios`)
     return this.http.get(`${this.apiUrl}/usuarios`).pipe(

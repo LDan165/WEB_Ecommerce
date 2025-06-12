@@ -203,4 +203,36 @@
   .btn-clear {
     flex: none;
   }
+
+  .terms-privacy {
+  margin-bottom: 20px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-top: 3px;
+  accent-color: #00b0ff;
+}
+
+.checkbox-container label {
+  color: #ccc;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.terms-link {
+  color: #00b0ff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.terms-link:hover {
+  color: #ff4081;
+  text-decoration: underline;
+}
 }

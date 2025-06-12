@@ -21,7 +21,8 @@ export class AgregarProductoComponent {
   // Lista de imágenes disponibles para seleccionar
   imagenesDisponibles = [
     { valor: 'assets/Figura_GokuSSJ.jpg', nombre: 'Figura Goku SSJ' },
-    { valor: 'assets/Figura_Scarface.jpg', nombre: 'Figura Tony Montana' }
+    { valor: 'assets/Figura_Scarface.jpg', nombre: 'Figura Tony Montana' },
+    { valor: 'assets/Comic_Invencible.jpg', nombre: 'Invencible'}
   ];
   
   constructor(
@@ -50,7 +51,7 @@ export class AgregarProductoComponent {
     const formValues = this.productoForm.value;
     
     const nuevoProducto = new Producto(
-      0, // El ID se generará en el servicio
+      0, 
       formValues.nombre,
       parseFloat(formValues.precio),
       formValues.imagen,
@@ -73,22 +74,18 @@ export class AgregarProductoComponent {
     this.mostrarMensaje('Producto guardado exitosamente');
   }
 
-  // Añade estas propiedades a tu clase para el sistema de notificaciones
 mostrarNotificacion = false;
 mensajeNotificacion = '';
 
-// Añade este método a tu clase
+
 mostrarMensaje(mensaje: string): void {
   this.mensajeNotificacion = mensaje;
   this.mostrarNotificacion = true;
   
-  // Ocultar después de 3 segundos
   setTimeout(() => {
     this.mostrarNotificacion = false;
   }, 3000);
 }
-
-
   
   cancelar() {
     this.router.navigate(['/inventario']);

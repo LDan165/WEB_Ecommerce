@@ -44,6 +44,28 @@
         {{ error }}
       </div>
 
+      <div class="terms-privacy">
+        <div class="checkbox-container">
+          <input
+            type="checkbox"
+            id="acceptTerms"
+            [(ngModel)]="aceptaTerminos"
+            name="aceptaTerminos"
+            required
+          />
+          <label for="acceptTerms">
+            Acepto los
+            <a [routerLink]="['/terminos-condiciones']" class="terms-link"
+              >Términos y Condiciones</a
+            >
+            y el
+            <a [routerLink]="['/aviso-privacidad']" class="terms-link"
+              >Aviso de Privacidad</a
+            >
+          </label>
+        </div>
+      </div>
+
       <div class="form-actions">
         <button type="submit" [disabled]="cargando" class="btn-login">
           <span *ngIf="cargando" class="spinner"></span>

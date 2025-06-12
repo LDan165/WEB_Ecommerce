@@ -2,7 +2,7 @@ import { Component } from "@angular/core"
 import { HttpClient } from "@angular/common/http"
 import { FormsModule } from "@angular/forms"
 import { CommonModule } from "@angular/common"
-import { Router } from "@angular/router"
+import { Router, RouterLink } from "@angular/router"
 import { AuthService } from "../auth.service"
 
 @Component({
@@ -10,13 +10,14 @@ import { AuthService } from "../auth.service"
   templateUrl: "./login.component.html",
   styleUrl: "./login.component.css",
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
 })
 export class LoginComponent {
   usuario = ""
   contrasena = ""
   cargando = false
   error = ""
+  aceptaTerminos = false
 
   constructor(
     private http: HttpClient,
@@ -34,6 +35,11 @@ export class LoginComponent {
     if (!this.isValidEmail(this.usuario)) {
       this.error = "Por favor, ingresa un email válido"
       return
+    }
+
+    if(!this.aceptaTerminos){
+      this.error = "Debbes aceptar los términso y condiciones y el aviso de provacidad";
+      return;
     }
 
     this.cargando = true

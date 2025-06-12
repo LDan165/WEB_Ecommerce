@@ -53,7 +53,6 @@ export class LoginComponent {
         console.error("❌ Error en login:", error)
         this.cargando = false
 
-        // Manejo de errores más específico
         if (error.status === 0) {
           this.error = "No se puede conectar al servidor. ¿Está ejecutándose en http://localhost:3000?"
         } else if (error.status === 401) {
@@ -67,7 +66,6 @@ export class LoginComponent {
     })
   }
 
-  // Método para probar conexión
   probarConexion(): void {
     console.log("🧪 Probando conexión...")
     this.authService.obtenerUsuarios().subscribe({
@@ -82,7 +80,6 @@ export class LoginComponent {
     })
   }
 
-  // Métodos para usar credenciales rápidamente
   usarAdmin(): void {
     this.loginData.email = "admin@correo.com"
     this.loginData.contrasena = "1234"

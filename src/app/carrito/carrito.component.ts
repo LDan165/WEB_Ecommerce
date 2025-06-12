@@ -28,30 +28,21 @@ export class CarritoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Suscribirse al observable del carrito
     this.carritoService.carrito$.subscribe((productos) => {
       this.carrito = productos
       this.actualizarStockDisponible()
     })
 
-   /* // Inicializar PayPal si hay productos en el carrito
-    setTimeout(() => {
-      if (this.carrito.length > 0) {
-        this.initPayPal()
-      }
-    }, 1000)*/
     this.loadPayPalScript();
   }
 
   ngAfterViewInit() {
-    // Si el script ya está cargado, renderizar el botón
     if (this.paypalScriptLoaded && this.carrito.length > 0) {
       this.renderPayPalButton()
     }
   }
 
   ngAfterViewChecked() {
-    // Verificar si el contenedor existe
     const container = document.getElementById("paypal-button-container")
     console.log("¿Existe el contenedor de PayPal?", container ? "SÍ" : "NO")
 
@@ -67,7 +58,6 @@ export class CarritoComponent implements OnInit {
  
 
     loadPayPalScript(): void {
-      // Verificar si ya está cargado
       if (window.paypal) {
         this.renderPayPalButton();
         return;
@@ -89,31 +79,6 @@ export class CarritoComponent implements OnInit {
       
       document.body.appendChild(script);
     }
-/*
-  renderPayPalButton(): void {
-    paypal.Buttons({
-      createOrder: (data:any, actions:any) => {
-        return actions.order.create({
-          purchase_units: [{
-            amount: {
-              value: this.calcularTotal().toFixed(2),
-            }
-          }]
-        });
-      },
-      onApprove: (data: any, actions: any) => {
-        return actions.order.capture().then((details: any) => {
-          alert('Pago completado por ' + details.payer.name.given_name);
-          this.carritoService.vaciarCarrito();
-          this.router.navigate(['/pago-exitoso']);
-        });
-      },
-      onError: (err:any) => {
-        console.error('Error en el pago: ', err);
-        alert('Error en el pago. Intente nuevamente.');
-      }
-    }).render('#paypal-button-container');
-  }*/
 
     renderPayPalButton() {
       if (!this.carrito.length) {
@@ -165,7 +130,6 @@ export class CarritoComponent implements OnInit {
       }
     }
 
-  // Actualizar información de stock disponible
   actualizarStockDisponible() {
     this.inventarioService.obtenerProductos().subscribe((productos) => {
       productos.forEach((producto) => {
@@ -174,18 +138,15 @@ export class CarritoComponent implements OnInit {
     })
   }
 
-  // Obtener stock disponible para un producto
   obtenerStockDisponible(producto: Producto): number {
     return this.stockDisponible.get(producto.id) || 0
   }
 
-  // Mostrar alerta de stock bajo
   mostrarAlertaStock(producto: Producto): boolean {
     const stockDisponible = this.obtenerStockDisponible(producto)
     return stockDisponible > 0 && stockDisponible <= 5
   }
 
-  // Incrementar cantidad de un producto
   incrementarCantidad(producto: Producto) {
     const stockDisponible = this.obtenerStockDisponible(producto)
     if (producto.cantidad < stockDisponible) {
@@ -193,7 +154,6 @@ export class CarritoComponent implements OnInit {
     }
   }
 
-  // Decrementar cantidad de un producto
   decrementarCantidad(producto: Producto) {
     if (producto.cantidad > 1) {
       this.carritoService.actualizarCantidad(producto.id, producto.cantidad - 1)
@@ -202,7 +162,6 @@ export class CarritoComponent implements OnInit {
     }
   }
 
-  // Actualizar cantidad desde el input
   actualizarCantidad(producto: Producto, event: any) {
     const nuevaCantidad = Number.parseInt(event.target.value, 10)
     const stockDisponible = this.obtenerStockDisponible(producto)
@@ -210,7 +169,6 @@ export class CarritoComponent implements OnInit {
     if (isNaN(nuevaCantidad) || nuevaCantidad <= 0) {
       this.eliminarDelCarrito(producto.id)
     } else if (nuevaCantidad > stockDisponible) {
-      // Limitar a stock disponible
       this.carritoService.actualizarCantidad(producto.id, stockDisponible)
       event.target.value = stockDisponible
     } else {
@@ -218,17 +176,14 @@ export class CarritoComponent implements OnInit {
     }
   }
 
-  // Calcular subtotal (sin IVA)
   calcularSubtotal(): number {
     return this.carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0)
   }
 
-  // Calcular IVA (16%)
   calcularIVA(): number {
     return this.calcularSubtotal() * 0.16
   }
 
-  // Calcular total (subtotal + IVA)
   calcularTotal(): number {
     return this.calcularSubtotal() + this.calcularIVA()
   }
@@ -261,22 +216,18 @@ export class CarritoComponent implements OnInit {
       URL.revokeObjectURL(url)
     }, 0)
 
-    // Vaciar el carrito después de pagar
     this.carritoService.vaciarCarrito()
   }
-    // Método alternativo para pagar con PayPal
     iniciarPagoPayPal() {
       alert("Redirigiendo a PayPal...")
   
-      // Crear un formulario para enviar a PayPal
       const form = document.createElement("form")
       form.method = "post"
       form.action = "https://www.sandbox.paypal.com/cgi-bin/webscr"
   
-      // Añadir campos necesarios
       const campos: Record<string, string> = {
         cmd: "_xclick",
-        business: "sb-47r8d25342552@business.example.com", // Email de sandbox para pruebas
+        business: "sb-47r8d25342552@business.example.com", 
         item_name: "Compra en Mi Tienda",
         amount: this.calcularTotal().toFixed(2),
         currency_code: "MXN",
@@ -284,7 +235,6 @@ export class CarritoComponent implements OnInit {
         cancel_return: window.location.origin + "/carrito",
       }
   
-      // Crear inputs para cada campo
       for (const [name, value] of Object.entries(campos)) {
         const input = document.createElement("input")
         input.type = "hidden"
@@ -293,7 +243,6 @@ export class CarritoComponent implements OnInit {
         form.appendChild(input)
       }
   
-      // Añadir el formulario al documento y enviarlo
       document.body.appendChild(form)
       form.submit()
       document.body.removeChild(form)

@@ -11,7 +11,6 @@ export class CarritoService {
   carrito$ = this.carritoSubject.asObservable();
 
   constructor() {
-    // Cargar carrito desde localStorage al iniciar
     this.cargarCarrito();
   }
 
